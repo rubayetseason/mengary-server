@@ -14,8 +14,6 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-// DBUSER=mengary
-// DBPASSWORD=iWEorHRcbn0aP6Io
 
 async function run() {
   try {
