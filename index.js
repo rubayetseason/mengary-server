@@ -14,7 +14,6 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-
 async function run() {
   try {
     const productsCollection = client.db("mengary").collection("products");
@@ -23,6 +22,13 @@ async function run() {
       let query = {};
       const products = await productsCollection.find(query).toArray();
       res.send(products);
+    });
+
+    app.get("/products/:item", async (req, res) => {
+      const item = req.params.item;
+      const query = { category_id: item };
+      const result = await productsCollection.find(query).toArray();
+      res.send(result);
     });
   } finally {
   }
