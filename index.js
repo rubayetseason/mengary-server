@@ -19,8 +19,20 @@ async function run() {
     const productsCollection = client.db("mengary").collection("products");
 
     app.get("/products", async (req, res) => {
+      const search = req.query.search;
+      console.log(search);
       let query = {};
-      const products = await productsCollection.find(query).toArray();
+      if (search) {
+        query = {
+          $text: {
+            $search: search,
+          },
+        };
+      }
+
+      const cursor = productsCollection.find(query);
+
+      const products = await cursor.toArray();
       res.send(products);
     });
 
